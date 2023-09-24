@@ -1,5 +1,5 @@
 [package]
-org = "kwizi"
+org = "admin"
 name = "server"
 version = "0.1.0"
 distribution = "2201.7.0"
