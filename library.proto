@@ -13,21 +13,16 @@ service Library_service {
     rpc remove_book(google.protobuf.StringValue) returns (stream Book);
     rpc list_available_books(google.protobuf.Empty) returns (stream Book);
     rpc locate_book(google.protobuf.StringValue) returns (Book);
-   
+    rpc borrow_book(Bookisbn) returns (UserResponse); // New RPC definition
 }
-
-
 
 message UserRequest {
     string user_id = 1;
 }
 
-
-
 message UserResponse {
     string message = 1;
 }
-
 
 message Book {
     string isbn = 1;
@@ -40,6 +35,3 @@ message Book {
 message Bookisbn{
     string isbn = 1;
 }
-
-
-
