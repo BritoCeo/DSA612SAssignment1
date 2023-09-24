@@ -1,0 +1,167 @@
+
+openapi: 3.0.1
+info:
+  title: Main Openapi Yaml
+  version: 0.1.0
+servers:
+- url: "{server}:{port}/"
+  variables:
+    server:
+      default: http://localhost
+    port:
+      default: "3500"
+paths:
+  /addLecturer:
+    post:
+      operationId: postAddlecturer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lecturer'
+      responses:
+        "201":
+          description: Created
+          content:
+            text/plain:
+              schema:
+                type: string
+  /updateExistingLecturer:
+    put:
+      operationId: putUpdateexistinglecturer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lecturer'
+      responses:
+        "200":
+          description: Ok
+          content:
+            text/plain:
+              schema:
+                type: string
+  /deleteLecturerByLecturerID:
+    delete:
+      operationId: deleteDeletelecturerbylecturerid
+      parameters:
+      - name: lecturerID
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Ok
+          content:
+            text/plain:
+              schema:
+                type: string
+  /retrieveLecturerDetailsByID/{lecturerID}:
+    get:
+      operationId: getRetrievelecturerdetailsbyidLecturerid
+      parameters:
+      - name: lecturerID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lecturer'
+  /retrieveLecturerInFaculty:
+    get:
+      operationId: getRetrievelecturerinfaculty
+      responses:
+        "200":
+          description: Ok
+          content:
+            text/plain:
+              schema:
+                type: string
+        "500":
+          description: Internal server error
+          content:
+            text/plain:
+              schema:
+                type: string
+  /retrieveAllLecturerInCertainCourse:
+    get:
+      operationId: getRetrievealllecturerincertaincourse
+      parameters:
+      - name: lecturerID
+        in: query
+        schema:
+          type: string
+          nullable: true
+      - name: courseCode
+        in: query
+        schema:
+          type: string
+          nullable: true
+      responses:
+        "200":
+          description: Ok
+          content:
+            text/plain:
+              schema:
+                type: string
+  /retrieveLectureByOfficeNo:
+    get:
+      operationId: getRetrievelecturebyofficeno
+      responses:
+        "200":
+          description: Ok
+          content:
+            text/plain:
+              schema:
+                type: string
+        "500":
+          description: Internal server error
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  schemas:
+    Lecturer:
+      required:
+      - emailAddress
+      - gender
+      - lecturerID
+      - qualification
+      - statues
+      - title
+      type: object
+      properties:
+        lecturerID:
+          type: string
+        emailAddress:
+          type: string
+        title:
+          type: string
+          enum:
+          - Mr
+          - Mrs
+          - Miss
+        gender:
+          type: string
+          enum:
+          - Other
+          - Female
+          - Male
+        statues:
+          type: string
+          enum:
+          - Married
+          - Single
+        qualification:
+          type: string
+          enum:
+          - Honours
+          - pHD
+          - Masters
