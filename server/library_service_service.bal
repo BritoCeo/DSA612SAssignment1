@@ -22,8 +22,10 @@ service "Library_service" on ep {
         } else {
             return {message: "the user was sucessfully created"};
     }
-    }
 
+
+
+    }
     remote function update_books(Book value) returns UserResponse|error {
         error? addNewBook = bookTable.put(value);
         if addNewBook is error {
@@ -31,8 +33,8 @@ service "Library_service" on ep {
         } else {
             return {message: "successfully updated"};
         }
-    }
 
+    }
     remote function locate_book(string value) returns Book|error {
      Book getbook = bookTable.get(value);
         if (getbook.isbn === "") {
@@ -41,39 +43,25 @@ service "Library_service" on ep {
         } else {
             return getbook;
     }
-    }
 
+
+    }
     remote function remove_book(string value) returns stream<Book, error?>|error {
         stream<Book, error?> courseStream = stream from var book in bookTable.toArray()
             select book;
     Book deletedBook = bookTable.remove(value);
+
 return   courseStream;
 }
-
     remote function list_available_books() returns stream<Book, error?>|error {
+
+
           stream<Book, error?> courseStream = stream from var book in bookTable.toArray()
             select book;
+
         return courseStream;
     }
     }
 
-//remote function borrow_book(Bookisbn value) returns UserResponse | error {
 
-    // Check if the book exists in the library
-    //var existingBook = bookTable.get(value.isbn);
-    //if (existingBook == ()) {
-    //    return error("Book not found");
-    //}
 
-    // Check if the book is available for borrowing
-    //var book = existingBook.value;
-    //if (book.status != "available") {
-    //    return error("Book is not available for borrowing");
-    //}
-
-    // Update the book status to "borrowed"
-    //book.status = "borrowed";
-    //bookTable.put(book);
-
-    //return { message: "Book borrowed successfully" };
-//}
